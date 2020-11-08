@@ -36,3 +36,35 @@ Traceback (most recent call last):
     from package.subdir2.world import printWorld
 ModuleNotFoundError: No module named 'package'
 ```
+
+Why is the error checking the opposite of reality?
+
+Another thing I am going to need to be able to do is call functions that are in separate subdirectories. In this context, say I wanted to call `printWorld()` directly from
+`printHello()`, so driver only had to call `printHello()` in order for `Hello World` to be printed.
+
+In `hello.py`, I do
+
+![](https://i.imgur.com/jS8qy3s.png)
+
+No error on the import line, but lo and behold 
+
+```
+Traceback (most recent call last):
+  File "driver.py", line 1, in <module>
+    from subdir1.hello import printHello
+  File "/home/gideon/test/testpythonrepo/package/subdir1/hello.py", line 1, in <module>
+    from ..subdir2.world import printWorld
+ValueError: attempted relative import beyond top-level package
+```
+
+when I try to run `driver.py` directly
+
+
+# TL;DR
+
+What am I doing wrong here? I simply want to;
+
+* Get files to call each other from across directory levels
+* Get `neovim`/`coc-python` to stop throwing false errors
+
+Please feel free to submit a PR or issue with any fix
